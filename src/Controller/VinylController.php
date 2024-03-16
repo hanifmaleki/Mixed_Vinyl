@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VinylController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'app-homepage')]
     public function homepage(): Response
     {
         $tracks = [
@@ -22,21 +22,21 @@ class VinylController extends AbstractController
             ['song'=>'Track7', 'artist' => 'Coolio'],
             ['song'=>'Track8', 'artist' => 'Coolio'],
         ];
+        
         return $this->render('homepage.html.twig',[
             'title' => 'PB  James',
             'tracks' => $tracks,
         ]);;
     }
 
-    #[Route('/browse/{slug}')]
+    #[Route('/browse/{slug}', name: 'app-browse')]
     public function browse(string $slug = null): Response
     {
-        if ($slug) {
-            $title = u(str_replace('-', ' ', $slug))->title(true);
-        } else {
-            $title = 'All';
-        }
-        return new Response('Breakup ' . $title);
+        
+        $genre = $slug ? u(str_replace('-', ' ', $slug))->title(true) : null;
+        return $this->render('browse.html.twig', [
+            'genre' => $genre,
+        ]);
     }
 
 }
