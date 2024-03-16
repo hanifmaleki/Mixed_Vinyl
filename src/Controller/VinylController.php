@@ -26,7 +26,7 @@ class VinylController extends AbstractController
         return $this->render('homepage.html.twig',[
             'title' => 'PB  James',
             'tracks' => $tracks,
-        ]);;
+        ]);
     }
 
     #[Route('/browse/{slug}', name: 'app-browse')]
